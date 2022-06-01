@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class UserInterface {
 
 static Logger logger = Logger.getLogger(UserInterface.class.getName());
-static HashMap<String, Account> accountsMap = new HashMap<String, Account>();
+static HashMap<String, Account> accountsMap = new HashMap<>();
     public static void main(String[] args) {
 
       createAccounts();
