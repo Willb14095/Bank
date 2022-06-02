@@ -8,7 +8,5 @@ public class Account extends AccountAbstract{
         setUsername(fName, lName);
         setPassword(password);
         generateAccountNumber();
-        //updateBalance(0.0);
-    }
-    
+    }  
 }
