@@ -23,8 +23,8 @@ public abstract class AccountAbstract {
             BigDecimal bd = BigDecimal.valueOf(value);
             balance = balance.add(bd);
         } else {
-            BigDecimal bd = BigDecimal.valueOf(value);
-            balance = bd.subtract(balance);
+            BigDecimal bd = BigDecimal.valueOf(Math.abs(value));
+            balance = balance.subtract(bd);
         }
     }
 

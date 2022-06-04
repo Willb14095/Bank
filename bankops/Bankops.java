@@ -11,6 +11,7 @@ import account.Account;
 public class Bankops {
 
   HashMap<String, Account> accountsMap = new HashMap<>();
+  Scanner scanner = new Scanner(System.in);
 
   public void createAccounts() {
     Account newAccount1 = new Account("Bob", "Burger", "pass1");
@@ -29,7 +30,7 @@ public class Bankops {
   
   public Account getAccount(String username, String password, Map<String, Account> map){
     Account selectedAccount = map.get(username);
-    if (selectedAccount.getPassword().equals(getHash(password))){
+    if (selectedAccount != null && selectedAccount.getPassword().equals(getHash(password))){
       return selectedAccount;
     } else {
       return null;
@@ -51,9 +52,48 @@ public class Bankops {
     return password;
   }
 
+  public void accountSelected(Account acc) {
+
+    double amount;
+    Boolean cont = true;
+    while ( Boolean.TRUE.equals(cont)){
+    System.out.println("Please select an option below.");
+    System.out.println("1. Deposit funds");
+    System.out.println("2. Withdraw funds");
+    System.out.println("3. Get balance");
+    System.out.println("4. Exit");
+    int selection = scanner.nextInt();
+
+    switch (selection) {
+      case 1:
+        System.out.println("Enter amount to deposit");
+        System.out.print("Amount: ");
+        amount = scanner.nextInt();
+        acc.deposit(amount);
+        break;
+
+      case 2:
+        System.out.println("Enter amount to withdraw");
+        System.out.print("Amount: ");
+        amount = scanner.nextInt();
+        acc.withdraw(amount);
+        break;
+
+      case 3:
+        System.out.println("-----------------------------");
+        System.out.println("Balance: " + acc.getBalance());
+        System.out.println("-----------------------------");
+        break;
+
+      default:
+        cont = false;
+        break;
+      }
+    }
+  }
+
   public void userInterface() {
 
-    Scanner scanner = new Scanner(System.in);
     Boolean cont = true;
     while ( Boolean.TRUE.equals(cont)) {
       System.out.println("Please select an option below.");
@@ -82,9 +122,9 @@ public class Bankops {
           String pass = scanner.next();
           Account acc = getAccount(username.toLowerCase(), pass, accountsMap);
           if (acc != null){
-            System.out.println("Select account action.");
+            accountSelected(acc);
           } else {
-            System.out.println("Password is wrong.");
+            System.out.println("Password or username is wrong.");
           }
           break;
     
@@ -96,6 +136,4 @@ public class Bankops {
     scanner.close();
     System.out.println("Good Bye");
   }
-    
-  
 }
